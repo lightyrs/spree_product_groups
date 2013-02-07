@@ -2,7 +2,7 @@ module Spree
   module Admin
     class ProductGroupsController < ResourceController
       before_filter :patch_params, :only => [:update]
-  
+
       def preview
         @product_group = ProductGroup.new(params[:product_group])
         @product_group.name = "for_preview"
@@ -14,7 +14,7 @@ module Spree
         def find_resource
           ProductGroup.find_by_permalink!(params[:id])
         end
-     
+
         def location_after_save
           edit_admin_product_group_path(@product_group)
         end
@@ -23,9 +23,9 @@ module Spree
           params[:q] ||= {}
           params[:q][:sort] ||= "name.asc"
           @search = super.search(params[:q])
-          @collection = @search.result(:distinct => true).page(params[:page]).per(Spree::Config[:admin_pgroup_per_page])
+          @collection = @search.result(:distinct => true).page(params[:page]).per(Spree::Config[:admin_products_per_page])
         end
-    
+
       private
 
         # Consolidate argument arrays for nested product_scope attributes
